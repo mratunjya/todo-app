@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 export const TodoListWrapper = styled(FlexBox)`
     width: 95%;
+    margin: 0 auto 60px;
+    @media only screen and (max-width: 768px) {
+        flex-direction: column;
+    }
 `;
 
 export const AddButton = styled.button`

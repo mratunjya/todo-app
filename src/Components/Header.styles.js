@@ -16,4 +16,5 @@ export const Head = styled(FlexBox)`
     color: #333;
     letter-spacing: 0.5px;
     line-height: 60px;
+    cursor: pointer;
 `;
