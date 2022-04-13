@@ -1,7 +1,14 @@
+import Header from './Components/Header';
+import TodoList from './Components/TodoList';
+import { FlexBox } from './Components/Common/FlexBox';
+
 function App() {
-  return (
-    <div>App</div>
-  );
+    return (
+        <FlexBox justify="center" align="center" column rowGap="40px">
+            <Header />
+            <TodoList />
+        </FlexBox>
+    );
 }
 
 export default App;
