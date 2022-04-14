@@ -46,8 +46,8 @@ function Modal({
                 const updatedTodos = [...prevTodos];
                 for (let i = 0; i < updatedTodos.length; i++) {
                     if (updatedTodos[i].id === updateId) {
-                        updatedTodos[i].title = updateTitle;
-                        updatedTodos[i].description = updateDescription;
+                        updatedTodos[i].title = updateTitle.trim();
+                        updatedTodos[i].description = updateDescription.trim();
                     }
                 }
                 localStorage.setItem('todos', JSON.stringify(updatedTodos));
@@ -64,8 +64,8 @@ function Modal({
                 const updateTodos = [
                     ...prevTodos,
                     {
-                        title: title,
-                        description: description,
+                        title: title.trim(),
+                        description: description.trim(),
                         id: id,
                         deleted: false,
                     },
@@ -75,6 +75,23 @@ function Modal({
             });
         }
         modalHandler();
+    };
+
+    //Check If Tilt and Description are empty
+    const isEmpty = () => {
+        if (updateTitle) {
+            if (updateTitle.trim() === '') {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (title.trim() === '') {
+                return true;
+            } else {
+                return false;
+            }
+        }
     };
 
     return (
@@ -102,7 +119,12 @@ function Modal({
                             }
                         />
                     </FlexBox>
-                    <SubmitButton type="submit" Update={Update} Add={Add}>
+                    <SubmitButton
+                        type="submit"
+                        Update={Update}
+                        Add={Add}
+                        disabled={isEmpty()}
+                    >
                         {Update ? <PencilIcon /> : Add && <PlusSmIcon />}
                         <p>{Update ? 'Update' : Add && 'Add'}</p>
                     </SubmitButton>

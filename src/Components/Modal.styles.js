@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FlexBox } from './Common/FlexBox';
 
 export const Backdrop = styled(FlexBox)`
@@ -25,7 +25,7 @@ export const MainModal = styled(FlexBox)`
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     z-index: 3;
     padding: 20px;
-    border-top: 4px solid #ffc107;
+    border-top: 4px solid #cddc39;
 `;
 
 export const CrossButton = styled.button`
@@ -104,6 +104,12 @@ export const SubmitButton = styled.button`
     color: #fff;
     letter-spacing: 1px;
     text-transform: uppercase;
+    ${(props) =>
+        props.disabled &&
+        css`
+            opacity: 0.5;
+            cursor: not-allowed;
+        `};
 
     svg {
         width: 25px;
