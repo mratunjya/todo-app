@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Card from './Common/Card';
 import { PlusSmIcon } from '@heroicons/react/solid';
 import Modal from './Modal';
@@ -16,6 +16,47 @@ function TodoList() {
     const [updateId, setUpdateId] = useState(null);
     const [updateTitle, setUpdateTitle] = useState('');
     const [updateDescription, setUpdateDescription] = useState('');
+
+    const dummyData = useMemo(() => {
+        return [
+            {
+                id: 1,
+                title: 'Learn React',
+                description: 'Learn React',
+                deleted: false,
+            },
+            {
+                id: 2,
+                title: 'Learn Redux',
+                description: 'Learn Redux',
+                deleted: false,
+            },
+            {
+                id: 3,
+                title: 'Learn Hooks',
+                description: 'Learn Hooks',
+                deleted: false,
+            },
+            {
+                id: 4,
+                title: 'Learn Context API',
+                description: 'Learn Context API',
+                deleted: false,
+            },
+            {
+                id: 5,
+                title: 'Learn React Router',
+                description: 'Learn React Router',
+                deleted: false,
+            },
+            {
+                id: 6,
+                title: 'Learn Styled Components',
+                description: 'Learn Styled Components',
+                deleted: false,
+            },
+        ];
+    }, []);
 
     const modalHandler = () => {
         setModal(!modal);
@@ -42,22 +83,9 @@ function TodoList() {
         if (localTodos?.length > 0) {
             setTodos(localTodos);
         } else {
-            setTodos([
-                {
-                    id: 1,
-                    title: 'Learn React',
-                    description: 'Learn React',
-                    deleted: false,
-                },
-                {
-                    id: 2,
-                    title: 'Learn Redux',
-                    description: 'Learn Redux',
-                    deleted: false,
-                },
-            ]);
+            setTodos(dummyData);
         }
-    }, []);
+    }, [dummyData]);
 
     useEffect(() => {
         document.body.style.overflow = modal ? 'hidden' : 'auto';
