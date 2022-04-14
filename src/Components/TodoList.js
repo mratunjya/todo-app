@@ -55,6 +55,24 @@ function TodoList() {
                 description: 'Learn Styled Components',
                 deleted: false,
             },
+            {
+                id: 7,
+                title: 'Learn HTML',
+                description: 'Learn HTML',
+                deleted: true,
+            },
+            {
+                id: 8,
+                title: 'Learn CSS',
+                description: 'Learn CSS',
+                deleted: true,
+            },
+            {
+                id: 9,
+                title: 'Learn Javascript',
+                description: 'Learn Javascript',
+                deleted: true,
+            },
         ];
     }, []);
 
