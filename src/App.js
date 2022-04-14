@@ -4,7 +4,7 @@ import { FlexBox } from './Components/Common/FlexBox';
 
 function App() {
     return (
-        <FlexBox justify="center" align="center" column rowGap="40px">
+        <FlexBox justify="center" align="center" column>
             <Header />
             <TodoList />
         </FlexBox>

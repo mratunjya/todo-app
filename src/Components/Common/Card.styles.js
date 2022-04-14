@@ -3,12 +3,13 @@ import { FlexBox } from './FlexBox';
 
 export const CardWrapper = styled(FlexBox)`
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-    width: 25%;
+    width: ${(props) => (props.deleted ? '100%' : '25%')};
+    background-color: #ffffff;
     border-radius: 8px;
     padding: 20px;
-    border-top: 4px solid #ffc107;
+    border-top: 4px solid ${(props) => (props.deleted ? '#f44336' : '#ffc107')};
     @media only screen and (max-width: 768px) {
-        width: 100%;
+        width: 95%;
         max-width: 360px;
     }
 `;
@@ -31,7 +32,8 @@ export const Button = styled.button`
     width: 30px;
     height: 30px;
     padding: 5px;
-    background-color: ${(props) => (props.edit ? '#e8f4fd' : '#fcd9d6')};
+    background-color: ${(props) =>
+        props.edit ? '#e8f4fd' : props.restore ? '#e5f4f3' : '#fcd9d6'};
     border: none;
     border-radius: 10px;
 
@@ -46,5 +48,9 @@ export const Button = styled.button`
 
     .trash {
         color: #f44336;
+    }
+
+    .restore {
+        color: #009688;
     }
 `;

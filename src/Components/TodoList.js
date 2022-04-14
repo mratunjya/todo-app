@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react';
 import Card from './Common/Card';
 import { PlusSmIcon } from '@heroicons/react/solid';
 import Modal from './Modal';
-import { TodoListWrapper, AddButton } from './TodoList.styles';
+import {
+    TodoListWrapper,
+    AddButton,
+    DeletedTodo,
+    TodoSectionWrapper,
+} from './TodoList.styles';
 
 function TodoList() {
     const [todos, setTodos] = useState([]);
@@ -54,29 +59,68 @@ function TodoList() {
         }
     }, []);
 
+    //Counts the number of todos which are not deleted
+    const countDeleted = () => {
+        let count = 0;
+        for (let i = 0; i < todos.length; i++) {
+            if (todos[i].deleted) {
+                count++;
+            }
+        }
+        return count;
+    };
+
     return (
-        <TodoListWrapper
-            wrap="wrap"
-            rowGap="20px"
-            columnGap="20px"
-            justify="center"
-            align="center"
-        >
-            <AddButton>
-                <PlusSmIcon onClick={modalHandler} />
-            </AddButton>
-            {todos.map(
-                (todo, index) =>
-                    !todo.deleted && (
-                        <Card
-                            key={index}
-                            title={todo.title}
-                            description={todo.description}
-                            id={todo.id}
-                            setTodos={setTodos}
-                            updateHandler={updateHandler}
-                        />
-                    )
+        <TodoSectionWrapper align="flex-start" columnGap="20px">
+            <TodoListWrapper
+                wrap="wrap"
+                rowGap="20px"
+                columnGap="20px"
+                justify="center"
+                align="center"
+            >
+                <AddButton>
+                    <PlusSmIcon onClick={modalHandler} />
+                </AddButton>
+                {todos.map(
+                    (todo, index) =>
+                        !todo.deleted && (
+                            <Card
+                                key={index}
+                                title={todo.title}
+                                description={todo.description}
+                                id={todo.id}
+                                setTodos={setTodos}
+                                updateHandler={updateHandler}
+                            />
+                        )
+                )}
+            </TodoListWrapper>
+            {countDeleted() !== 0 && (
+                <DeletedTodo
+                    wrap="wrap"
+                    rowGap="20px"
+                    columnGap="20px"
+                    align="flex-start"
+                    justify="center"
+                    column
+                >
+                    <h3>Recycle Todos</h3>
+                    {todos.map(
+                        (todo, index) =>
+                            todo.deleted && (
+                                <Card
+                                    key={index}
+                                    title={todo.title}
+                                    description={todo.description}
+                                    id={todo.id}
+                                    setTodos={setTodos}
+                                    updateHandler={updateHandler}
+                                    deleted={todo.deleted}
+                                />
+                            )
+                    )}
+                </DeletedTodo>
             )}
             {modal && update ? (
                 <Modal
@@ -100,7 +144,7 @@ function TodoList() {
                     />
                 )
             )}
-        </TodoListWrapper>
+        </TodoSectionWrapper>
     );
 }
 
