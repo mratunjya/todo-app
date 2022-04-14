@@ -59,6 +59,10 @@ function TodoList() {
         }
     }, []);
 
+    useEffect(() => {
+        document.body.style.overflow = modal ? 'hidden' : 'auto';
+    }, [modal]);
+
     //Counts the number of todos which are not deleted
     const countDeleted = () => {
         let count = 0;
