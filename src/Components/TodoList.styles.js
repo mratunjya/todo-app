@@ -17,6 +17,7 @@ export const TodoListWrapper = styled(FlexBox)`
     position: sticky;
     top: 101px;
     left: 0;
+    margin-top: 20px;
 
     &::-webkit-scrollbar {
         width: 0.5em;
@@ -41,7 +42,6 @@ export const TodoListWrapper = styled(FlexBox)`
         max-height: unset;
         top: unset;
         left: unset;
-        margin-top: 20px;
     }
 `;
 
