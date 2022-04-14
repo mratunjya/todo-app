@@ -69,7 +69,7 @@ function Modal({
                         id: id,
                         deleted: false,
                     },
-                ];
+                ].reverse();
                 localStorage.setItem('todos', JSON.stringify(updateTodos));
                 return updateTodos;
             });

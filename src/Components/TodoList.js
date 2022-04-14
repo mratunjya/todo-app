@@ -73,7 +73,7 @@ function TodoList() {
                 description: 'Learn Javascript',
                 deleted: true,
             },
-        ];
+        ].reverse();
     }, []);
 
     const modalHandler = () => {
