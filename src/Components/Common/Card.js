@@ -75,7 +75,7 @@ function Card({
             <FlexBox align="center" justify="space-between" columnGap="10px">
                 <em>
                     {editTodoDate ? 'Last Edited' : 'Created'}:<br />
-                    <strong>{createDate}</strong>
+                    <strong>{editTodoDate ? editTodoDate : createDate}</strong>
                 </em>
                 <FlexBox columnGap="10px">
                     {deleted && (
