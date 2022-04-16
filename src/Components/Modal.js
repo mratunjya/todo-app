@@ -41,6 +41,7 @@ function Modal({
 
     const submitHandler = (e) => {
         e.preventDefault();
+        const date = new Date().toLocaleDateString().split('/');
         if (Update) {
             setTodos((prevTodos) => {
                 const updatedTodos = [...prevTodos];
@@ -48,6 +49,9 @@ function Modal({
                     if (updatedTodos[i].id === updateId) {
                         updatedTodos[i].title = updateTitle.trim();
                         updatedTodos[i].description = updateDescription.trim();
+                        updatedTodos[
+                            i
+                        ].editTodoDate = `${date[1]}-${date[0]}-${date[2]}`;
                     }
                 }
                 localStorage.setItem('todos', JSON.stringify(updatedTodos));
@@ -59,7 +63,7 @@ function Modal({
                 if (prevTodos.length === 0) {
                     id = 0;
                 } else {
-                    id = prevTodos[prevTodos.length - 1].id + 1;
+                    id = prevTodos[0].id + 1;
                 }
                 const updateTodos = [
                     ...prevTodos,
@@ -68,6 +72,7 @@ function Modal({
                         description: description.trim(),
                         id: id,
                         deleted: false,
+                        createDate: `${date[1]}-${date[0]}-${date[2]}`,
                     },
                 ].reverse();
                 localStorage.setItem('todos', JSON.stringify(updateTodos));

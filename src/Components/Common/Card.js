@@ -3,8 +3,18 @@ import { PencilAltIcon, ReplyIcon, TrashIcon } from '@heroicons/react/solid';
 import { FlexBox } from './FlexBox';
 import { CardWrapper, TitleChip, Button } from './Card.styles';
 
-function Card({ title, description, id, setTodos, updateHandler, deleted }) {
+function Card({
+    title,
+    description,
+    id,
+    setTodos,
+    updateHandler,
+    deleted,
+    createDate,
+    editTodoDate,
+}) {
     const cardId = useRef();
+    console.log(createDate);
 
     const deleteHandler = () => {
         const deleteElementId = parseInt(cardId.current.id);
@@ -62,21 +72,27 @@ function Card({ title, description, id, setTodos, updateHandler, deleted }) {
                 {title}
             </TitleChip>
             <p>{description}</p>
-            <FlexBox align="center" justify="flex-end" columnGap="10px">
-                {deleted && (
-                    <Button restore>
-                        <ReplyIcon
-                            className="restore"
-                            onClick={restoreHandler}
-                        />
+            <FlexBox align="center" justify="space-between" columnGap="10px">
+                <em>
+                    {editTodoDate ? 'Last Edited' : 'Created'}:<br />
+                    <strong>{createDate}</strong>
+                </em>
+                <FlexBox columnGap="10px">
+                    {deleted && (
+                        <Button restore>
+                            <ReplyIcon
+                                className="restore"
+                                onClick={restoreHandler}
+                            />
+                        </Button>
+                    )}
+                    <Button edit>
+                        <PencilAltIcon className="edit" onClick={editHandler} />
                     </Button>
-                )}
-                <Button edit>
-                    <PencilAltIcon className="edit" onClick={editHandler} />
-                </Button>
-                <Button trash onClick={deleteHandler}>
-                    <TrashIcon className="trash" />
-                </Button>
+                    <Button trash onClick={deleteHandler}>
+                        <TrashIcon className="trash" />
+                    </Button>
+                </FlexBox>
             </FlexBox>
         </CardWrapper>
     );

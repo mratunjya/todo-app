@@ -142,6 +142,16 @@ function TodoList() {
                                 id={todo.id}
                                 setTodos={setTodos}
                                 updateHandler={updateHandler}
+                                createDate={
+                                    todo.createDate
+                                        ? todo.createDate
+                                        : 'Initial'
+                                }
+                                editTodoDate={
+                                    todo.editTodoDate
+                                        ? todo.editTodoDate
+                                        : false
+                                }
                             />
                         )
                 )}
@@ -167,6 +177,16 @@ function TodoList() {
                                     setTodos={setTodos}
                                     updateHandler={updateHandler}
                                     deleted={todo.deleted}
+                                    createDate={
+                                        todo.createDate
+                                            ? todo.createDate
+                                            : 'Initial'
+                                    }
+                                    editTodoDate={
+                                        todo.editTodoDate
+                                            ? todo.editTodoDate
+                                            : false
+                                    }
                                 />
                             )
                     )}
