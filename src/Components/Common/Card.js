@@ -14,7 +14,6 @@ function Card({
     editTodoDate,
 }) {
     const cardId = useRef();
-    console.log(createDate);
 
     const deleteHandler = () => {
         const deleteElementId = parseInt(cardId.current.id);
