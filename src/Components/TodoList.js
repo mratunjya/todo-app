@@ -168,31 +168,30 @@ function TodoList() {
                     column
                 >
                     <h3>Recycle Todos</h3>
-                    {todos
-                        .map(
-                            (todo, index) =>
-                                todo.deleted && (
-                                    <Card
-                                        key={index}
-                                        title={todo.title}
-                                        description={todo.description}
-                                        id={todo.id}
-                                        setTodos={setTodos}
-                                        updateHandler={updateHandler}
-                                        deleted={todo.deleted}
-                                        createDate={
-                                            todo.createDate
-                                                ? todo.createDate
-                                                : 'Initial'
-                                        }
-                                        editTodoDate={
-                                            todo.editTodoDate
-                                                ? todo.editTodoDate
-                                                : false
-                                        }
-                                    />
-                                )
-                        )}
+                    {todos.map(
+                        (todo, index) =>
+                            todo.deleted && (
+                                <Card
+                                    key={index}
+                                    title={todo.title}
+                                    description={todo.description}
+                                    id={todo.id}
+                                    setTodos={setTodos}
+                                    updateHandler={updateHandler}
+                                    deleted={todo.deleted}
+                                    createDate={
+                                        todo.createDate
+                                            ? todo.createDate
+                                            : 'Initial'
+                                    }
+                                    editTodoDate={
+                                        todo.editTodoDate
+                                            ? todo.editTodoDate
+                                            : false
+                                    }
+                                />
+                            )
+                    )}
                 </DeletedTodo>
             )}
             {modal && update ? (
