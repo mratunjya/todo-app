@@ -64,7 +64,11 @@ function Modal({
                 if (prevTodos.length === 0) {
                     id = 0;
                 } else {
-                    id = prevTodos[0].id + 1;
+                    let maxId = 0;
+                    prevTodos.forEach((prevTodo) => {
+                        if (prevTodo.id > maxId) maxId = prevTodo.id;
+                    });
+                    id = maxId + 1;
                 }
                 const updateTodos = [
                     ...prevTodos,
@@ -75,8 +79,9 @@ function Modal({
                         deleted: false,
                         createDate: `${date[1]}-${date[0]}-${date[2]}`,
                     },
-                ].reverse();
+                ];
                 localStorage.setItem('todos', JSON.stringify(updateTodos));
+                console.table(updateTodos);
                 return updateTodos;
             });
         }
