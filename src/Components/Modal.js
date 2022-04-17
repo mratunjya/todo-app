@@ -4,6 +4,7 @@ import { FlexBox } from './Common/FlexBox';
 import { PlusSmIcon } from '@heroicons/react/solid';
 import {
     Backdrop,
+    MainModalWrapper,
     MainModal,
     CrossButton,
     Heading,
@@ -101,40 +102,44 @@ function Modal({
 
     return (
         <Backdrop onClick={modalHandler}>
-            <MainModal onClick={stopPropagation} column rowGap="40px">
-                <CrossButton onClick={modalHandler}>
-                    <XIcon />
-                </CrossButton>
-                <Heading>{Add ? 'Add New' : Update && 'Update'} Task</Heading>
-                <TaskForm onSubmit={submitHandler}>
-                    <FlexBox column rowGap="20px">
-                        <TitleChip
-                            type="text"
-                            placeholder="Title"
-                            onChange={titleHandler}
-                            value={updateTitle ? updateTitle : title}
-                        />
-                        <TaskDescription
-                            placeholder="Description"
-                            onChange={descriptionHandler}
-                            value={
-                                updateDescription
-                                    ? updateDescription
-                                    : description
-                            }
-                        />
-                    </FlexBox>
-                    <SubmitButton
-                        type="submit"
-                        Update={Update}
-                        Add={Add}
-                        disabled={isEmpty()}
-                    >
-                        {Update ? <PencilIcon /> : Add && <PlusSmIcon />}
-                        <p>{Update ? 'Update' : Add && 'Add'}</p>
-                    </SubmitButton>
-                </TaskForm>
-            </MainModal>
+            <MainModalWrapper justify="center" align="center">
+                <MainModal onClick={stopPropagation} column rowGap="40px">
+                    <CrossButton onClick={modalHandler}>
+                        <XIcon />
+                    </CrossButton>
+                    <Heading>
+                        {Add ? 'Add New' : Update && 'Update'} Task
+                    </Heading>
+                    <TaskForm onSubmit={submitHandler}>
+                        <FlexBox column rowGap="20px">
+                            <TitleChip
+                                type="text"
+                                placeholder="Title"
+                                onChange={titleHandler}
+                                value={updateTitle ? updateTitle : title}
+                            />
+                            <TaskDescription
+                                placeholder="Description"
+                                onChange={descriptionHandler}
+                                value={
+                                    updateDescription
+                                        ? updateDescription
+                                        : description
+                                }
+                            />
+                        </FlexBox>
+                        <SubmitButton
+                            type="submit"
+                            Update={Update}
+                            Add={Add}
+                            disabled={isEmpty()}
+                        >
+                            {Update ? <PencilIcon /> : Add && <PlusSmIcon />}
+                            <p>{Update ? 'Update' : Add && 'Add'}</p>
+                        </SubmitButton>
+                    </TaskForm>
+                </MainModal>
+            </MainModalWrapper>
         </Backdrop>
     );
 }

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { FlexBox } from './Common/FlexBox';
 
 export const Backdrop = styled(FlexBox)`
@@ -11,7 +11,7 @@ export const Backdrop = styled(FlexBox)`
     z-index: 2;
 `;
 
-export const MainModal = styled(FlexBox)`
+export const MainModalWrapper = styled(FlexBox)`
     position: fixed;
     top: 50%;
     left: 50%;
@@ -20,12 +20,30 @@ export const MainModal = styled(FlexBox)`
     max-width: 600px;
     height: 95vh;
     max-height: 400px;
+    border-radius: 8px;
+`;
+
+const zoomIn = keyframes`
+    from {
+        opacity: 0.5;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+`;
+
+export const MainModal = styled(FlexBox)`
+    width: 100%;
+    height: 100%;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     z-index: 3;
     padding: 20px;
     border-top: 4px solid #cddc39;
+    animation: ${zoomIn} 0.25s ease-in-out;
 `;
 
 export const CrossButton = styled.button`

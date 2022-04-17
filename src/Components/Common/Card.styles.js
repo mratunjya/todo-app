@@ -1,5 +1,17 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { FlexBox } from './FlexBox';
+
+const zoomIn = keyframes`
+    from {
+        transform: scale(0);
+    }
+    90% {
+        transform: scale(1.1);
+    }
+    to {
+        transform: scale(1);
+    }
+`;
 
 export const CardWrapper = styled(FlexBox)`
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
@@ -8,6 +20,8 @@ export const CardWrapper = styled(FlexBox)`
     border-radius: 8px;
     padding: 20px;
     border-top: 4px solid ${(props) => (props.deleted ? '#f44336' : '#ffc107')};
+    animation: ${zoomIn} 0.5s ease;
+
     @media only screen and (max-width: 768px) {
         width: 95%;
         max-width: 360px;
