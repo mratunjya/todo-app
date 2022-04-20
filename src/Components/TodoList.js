@@ -73,7 +73,7 @@ function TodoList() {
                 description: 'Learn Javascript',
                 deleted: true,
             },
-        ].reverse();
+        ];
     }, []);
 
     const modalHandler = () => {
@@ -133,7 +133,6 @@ function TodoList() {
                     <PlusSmIcon onClick={modalHandler} />
                 </AddButton>
                 {todos
-                    .reverse()
                     .map(
                         (todo, index) =>
                             !todo.deleted && (
