@@ -1,7 +1,13 @@
-import { useRef } from 'react';
-import { PencilAltIcon, ReplyIcon, TrashIcon } from '@heroicons/react/solid';
-import { FlexBox } from './FlexBox';
-import { CardWrapper, TitleChip, Button } from './Card.styles';
+import { useRef } from "react";
+import { PencilAltIcon, ReplyIcon, TrashIcon } from "@heroicons/react/solid";
+import { FlexBox } from "./FlexBox";
+import {
+    CardWrapper,
+    TitleChip,
+    Button,
+    DateAndTime,
+    ColorLightBlack,
+} from "./Card.styles";
 
 function Card({
     title,
@@ -11,7 +17,9 @@ function Card({
     updateHandler,
     deleted,
     createDate,
+    createTime,
     editTodoDate,
+    editTodoTime,
 }) {
     const cardId = useRef();
 
@@ -34,7 +42,7 @@ function Card({
                     }
                 }
             }
-            localStorage.setItem('todos', JSON.stringify(UpdateTodos));
+            localStorage.setItem("todos", JSON.stringify(UpdateTodos));
             return UpdateTodos;
         });
     };
@@ -49,7 +57,7 @@ function Card({
                     break;
                 }
             }
-            localStorage.setItem('todos', JSON.stringify(UpdateTodos));
+            localStorage.setItem("todos", JSON.stringify(UpdateTodos));
             return UpdateTodos;
         });
     };
@@ -60,29 +68,42 @@ function Card({
     };
 
     return (
-        <CardWrapper
-            rowGap="20px"
-            column
-            id={id}
-            ref={cardId}
-            deleted={deleted}
-        >
+        <CardWrapper rowGap="20px" column id={id} ref={cardId} deleted={deleted}>
             <TitleChip justify="center" align="center">
                 {title}
             </TitleChip>
             <p>{description}</p>
             <FlexBox align="center" justify="space-between" columnGap="10px">
-                <em>
-                    {editTodoDate ? 'Last Edited' : 'Created'}:<br />
-                    <strong>{editTodoDate ? editTodoDate : createDate}</strong>
-                </em>
+                <FlexBox column rowGap="10px">
+                    <em>{editTodoDate ? "Last Edited" : "Created"}:</em>
+                    <FlexBox column rowGap="4px">
+                        {editTodoTime ? (
+                            <DateAndTime>
+                                Time: <ColorLightBlack>{editTodoTime}</ColorLightBlack>
+                            </DateAndTime>
+                        ) : (
+                            createTime !== "Initial" && (
+                                <DateAndTime>
+                                    Time: <ColorLightBlack>{createTime}</ColorLightBlack>
+                                </DateAndTime>
+                            )
+                        )}
+                        {editTodoDate ? (
+                            <DateAndTime>
+                                Date: <ColorLightBlack>{editTodoDate}</ColorLightBlack>
+                            </DateAndTime>
+                        ) : (
+                            <DateAndTime>
+                                {createDate !== "Initial" && "Date: "}
+                                <ColorLightBlack>{createDate}</ColorLightBlack>
+                            </DateAndTime>
+                        )}
+                    </FlexBox>
+                </FlexBox>
                 <FlexBox columnGap="10px">
                     {deleted && (
                         <Button restore>
-                            <ReplyIcon
-                                className="restore"
-                                onClick={restoreHandler}
-                            />
+                            <ReplyIcon className="restore" onClick={restoreHandler} />
                         </Button>
                     )}
                     <Button edit>

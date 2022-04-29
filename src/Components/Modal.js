@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { PencilIcon, XIcon } from '@heroicons/react/solid';
-import { FlexBox } from './Common/FlexBox';
-import { PlusSmIcon } from '@heroicons/react/solid';
+import { useState } from "react";
+import { PencilIcon, XIcon } from "@heroicons/react/solid";
+import { FlexBox } from "./Common/FlexBox";
+import { PlusSmIcon } from "@heroicons/react/solid";
 import {
     Backdrop,
     MainModalWrapper,
@@ -12,7 +12,7 @@ import {
     TitleChip,
     TaskDescription,
     SubmitButton,
-} from './Modal.styles';
+} from "./Modal.styles";
 
 function Modal({
     modalHandler,
@@ -25,8 +25,8 @@ function Modal({
     setUpdateDescription,
     updateId,
 }) {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
 
     const stopPropagation = (e) => e.stopPropagation();
 
@@ -42,7 +42,18 @@ function Modal({
 
     const submitHandler = (e) => {
         e.preventDefault();
-        const date = new Date().toLocaleDateString().split('/');
+        const date = new Date();
+        const dateInHumanUnderstandableFormat = date
+            .toLocaleDateString()
+            .split("/");
+        let hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+        hours = hours < 10 ? `0${hours}` : hours;
+        let minutes = date.getMinutes();
+        minutes = minutes < 10 ? `0${minutes}` : minutes;
+        let seconds = date.getSeconds();
+        seconds = seconds < 10 ? `0${seconds}` : seconds;
+        let amOrpm = date.getHours() >= 12 ? "p.m." : "a.m.";
+        const time = `${hours}:${minutes}:${seconds} ${amOrpm}`;
         if (Update) {
             setTodos((prevTodos) => {
                 const updatedTodos = [...prevTodos];
@@ -52,10 +63,11 @@ function Modal({
                         updatedTodos[i].description = updateDescription.trim();
                         updatedTodos[
                             i
-                        ].editTodoDate = `${date[1]}-${date[0]}-${date[2]}`;
+                        ].editTodoDate = `${dateInHumanUnderstandableFormat[1]}-${dateInHumanUnderstandableFormat[0]}-${dateInHumanUnderstandableFormat[2]}`;
+                        updatedTodos[i].editTodoTime = time;
                     }
                 }
-                localStorage.setItem('todos', JSON.stringify(updatedTodos));
+                localStorage.setItem("todos", JSON.stringify(updatedTodos));
                 return updatedTodos;
             });
         } else {
@@ -77,10 +89,11 @@ function Modal({
                         description: description.trim(),
                         id: id,
                         deleted: false,
-                        createDate: `${date[1]}-${date[0]}-${date[2]}`,
+                        createDate: `${dateInHumanUnderstandableFormat[1]}-${dateInHumanUnderstandableFormat[0]}-${dateInHumanUnderstandableFormat[2]}`,
+                        createTime: time,
                     },
                 ];
-                localStorage.setItem('todos', JSON.stringify(updateTodos));
+                localStorage.setItem("todos", JSON.stringify(updateTodos));
                 console.table(updateTodos);
                 return updateTodos;
             });
@@ -91,13 +104,13 @@ function Modal({
     //Check If Tilt and Description are empty
     const isEmpty = () => {
         if (updateTitle) {
-            if (updateTitle.trim() === '') {
+            if (updateTitle.trim() === "") {
                 return true;
             } else {
                 return false;
             }
         } else {
-            if (title.trim() === '') {
+            if (title.trim() === "") {
                 return true;
             } else {
                 return false;
@@ -112,9 +125,7 @@ function Modal({
                     <CrossButton onClick={modalHandler}>
                         <XIcon />
                     </CrossButton>
-                    <Heading>
-                        {Add ? 'Add New' : Update && 'Update'} Task
-                    </Heading>
+                    <Heading>{Add ? "Add New" : Update && "Update"} Task</Heading>
                     <TaskForm onSubmit={submitHandler}>
                         <FlexBox column rowGap="20px">
                             <TitleChip
@@ -126,11 +137,7 @@ function Modal({
                             <TaskDescription
                                 placeholder="Description"
                                 onChange={descriptionHandler}
-                                value={
-                                    updateDescription
-                                        ? updateDescription
-                                        : description
-                                }
+                                value={updateDescription ? updateDescription : description}
                             />
                         </FlexBox>
                         <SubmitButton
@@ -140,7 +147,7 @@ function Modal({
                             disabled={isEmpty()}
                         >
                             {Update ? <PencilIcon /> : Add && <PlusSmIcon />}
-                            <p>{Update ? 'Update' : Add && 'Add'}</p>
+                            <p>{Update ? "Update" : Add && "Add"}</p>
                         </SubmitButton>
                     </TaskForm>
                 </MainModal>
