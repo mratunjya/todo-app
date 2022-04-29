@@ -94,7 +94,6 @@ function Modal({
                     },
                 ];
                 localStorage.setItem("todos", JSON.stringify(updateTodos));
-                console.table(updateTodos);
                 return updateTodos;
             });
         }
